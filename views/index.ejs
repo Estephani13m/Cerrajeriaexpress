@@ -58,15 +58,62 @@
             <div class="div-text-funciones">
                 <span>1. Llamada de Emergencia: Contactas con nosotros ante una situación de cerrajería.</span>
                 <span>2. Evaluación Remota: Realizamos una evaluación inicial y proporcionamos orientación telefónica si es posible.</span>
-                <span>3. 3. Desplazamiento Rápido: Enviamos cerrajeros expertos al lugar para resolver el problema.
+                <span>3. Desplazamiento Rápido: Enviamos cerrajeros expertos al lugar para resolver el problema.
                 </span>
             </div>
         </div>
     </div>
     <div class="div-footer">
+        <div class="div-form-contactos">
+            <form action="/form-contacto" method="post" class="form-contactos" id="contacto-form">
+                <div class="div-name-email">
+                    <div class="div-input">
+                        <input type="email" name="email" placeholder="Correo Electrónico" required>
+                    </div>
+                    <div class="div-input">
+                        <input type="text" name="name" placeholder="Nombre" required>
+                    </div>
+                </div>
+                <div class="div-textarea">
+                    <textarea placeholder="Escribe tu comentario..." name="mensaje" required></textarea>
+                </div>
+                <div class="div-btn">
+                    <input type="submit" value="Enviar" id="submit-btn">
+                </div>
+                <span id="aviso"></span>
+            </form>
+        </div>
         <h3>¡Tu seguridad es nuestra prioridad!</h3>
         <h3>Contáctanos para asistencia inmediata.</h3>
         <span>© 2023 Cerrajeria Espress C.A. Todos los derechos reservados.</span>
     </div>
+
+    <script>
+
+
+document.getElementById('submit-btn').addEventListener('click', async () => {
+    const form = document.getElementById('contacto-form');
+    
+    const formData = new FormData(form);
+   
+    formData.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    });
+
+    const response = await fetch("/form-contacto", {
+      method: 'POST',
+      body: formData,
+    });
+  
+    console.log(response.status)
+
+    if (response.ok) {
+    console.log('Formulario enviado con éxito');
+    document.getElementById('aviso').textContent = 'Formulario enviado con éxito';
+    } else {
+      console.error('Error al enviar el formulario');
+    }
+  });
+    </script>
 </body>
 </html>
